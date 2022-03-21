@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.snowalker.grpc.sdk";
+option java_outer_classname = "OrderServiceProto";
+
+// 订单服务IDL定义
+service OrderService {
+  // 查询用户订单列表
+  rpc queryUserOrders (QueryUserOrderRequest) returns (QueryUserOrderResponse) {
+  }
+
+  // 下单
+  rpc placeOrder(PlaceOrderRequest) returns (PlaceOrderRequestResponse) {
+  }
+}
+
+// 查询订单请求
+message QueryUserOrderRequest {
+  int32 userId = 1;
+}
+
+// 查询订单响应
+message QueryUserOrderResponse {
+  int32 userId = 1;
+  string totalPrice = 2;
+  repeated UserOrder userOrder = 3;
+}
+
+// 批量下单请求
+message PlaceOrderRequest {
+  int32 userId = 1;
+  repeated PlaceUserOrderParam placeUserOrderParam = 2;
+}
+
+// 批量下单响应
+message PlaceOrderRequestResponse {
+  int32 userId = 1;
+  ResultCode resultCode = 2;
+}
+
+// 订单查询详情
+message UserOrder {
+  int64 orderId = 1;
+  string orderPrice = 2;
+  string orderAmount = 3;
+  int32 productId = 4;
+}
+
+// 下单请求详情
+message PlaceUserOrderParam {
+  string orderPrice = 1;    // 单价
+  string orderAmount = 2;   // 数量
+  int32 productId = 3;      // 商品id
+}
+
+// 结果枚举：成功/失败
+enum ResultCode {
+  SUCCESS = 0;
+  FAILURE = 1;
+  UNKNOWN = 2;
+}
