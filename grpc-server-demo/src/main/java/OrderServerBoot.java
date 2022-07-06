@@ -70,6 +70,10 @@ public class OrderServerBoot {
 	@SneakyThrows
 	public static void main(String[] args) {
 		OrderServerBoot boot = new OrderServerBoot();
+
+
+		DirectMemoryReporter directMemoryReporter = new DirectMemoryReporter();
+
 		// 启动服务
 		boot.startServer();
 		// 主线程等待终止
